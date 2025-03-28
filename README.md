@@ -1,6 +1,6 @@
 # Industrial Image Vault
 
-![Industrial Image Vault](./screenshots/preview.png)
+![Industrial Image Vault](./screenshots/Preview.PNG)
 
 A stylish industrial-themed image gallery application built with modern web technologies. Upload, view, and manage your images with a unique factory-inspired interface.
 
@@ -108,9 +108,14 @@ http://localhost:5173
 
 ## Screenshots
 
-![Login Screen](./screenshots/login.png)
-![Gallery View](./screenshots/gallery.png)
-![Image Modal](./screenshots/modal.png)
+### Main Gallery View
+![Gallery View](./screenshots/Preview.PNG)
+
+### Login Screen
+![Login Screen](./screenshots/Login-Preview.PNG)
+
+### Registration Screen
+![Registration Screen](./screenshots/Register-Preview.PNG)
 
 ## Easter Eggs
 
