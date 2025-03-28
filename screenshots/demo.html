@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industrial Image Vault - Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --industrial-dark: #212529;
+      --industrial-gray: #343a40;
+      --industrial-metal: #495057;
+      --industrial-rust: #b0633b;
+      --industrial-concrete: #adb5bd;
+      --industrial-accent: #ffd166;
+    }
+    
+    body {
+      font-family: 'Saira Condensed', sans-serif;
+      background-color: var(--industrial-dark);
+      color: #f8f9fa;
+      background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+      min-height: 100vh;
+      padding-bottom: 60px;
+      position: relative;
+    }
+    
+    .card {
+      background-color: var(--industrial-gray);
+      border: 1px solid var(--industrial-metal);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    
+    .card-header, .modal-header {
+      background-color: var(--industrial-metal);
+      border-bottom: 2px solid var(--industrial-rust);
+    }
+    
+    .card-footer, .modal-footer {
+      background-color: var(--industrial-metal);
+      border-top: 2px solid var(--industrial-rust);
+    }
+    
+    .btn-primary {
+      background-color: var(--industrial-rust);
+      border-color: var(--industrial-rust);
+    }
+    
+    .btn-primary:hover {
+      background-color: #964f2e;
+      border-color: #964f2e;
+    }
+    
+    .btn-secondary {
+      background-color: var(--industrial-metal);
+      border-color: var(--industrial-concrete);
+    }
+    
+    .btn-danger {
+      background-color: #6c1414;
+      border-color: #5a1111;
+    }
+    
+    .form-control {
+      background-color: var(--industrial-gray);
+      border: 1px solid var(--industrial-metal);
+      color: #f8f9fa;
+    }
+    
+    .form-control:focus {
+      background-color: var(--industrial-gray);
+      border-color: var(--industrial-rust);
+      color: #f8f9fa;
+    }
+    
+    .form-control::placeholder {
+      color: #adb5bd;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .modal-content {
+      background-color: var(--industrial-gray);
+      border: 2px solid var(--industrial-rust);
+    }
+    
+    code, pre {
+      font-family: 'Roboto Mono', monospace;
+    }
+    
+    .site-footer {
+      background-color: var(--industrial-dark);
+      color: var(--industrial-concrete);
+      padding: 1rem 0;
+      margin-top: 2rem;
+      border-top: 3px solid var(--industrial-rust);
+      text-align: center;
+      font-size: 0.9rem;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    
+    .footer-link {
+      color: var(--industrial-accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    
+    .footer-link:hover {
+      color: #fff;
+    }
+    
+    .footer-link::before {
+      content: "⚙️";
+      margin-right: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    /* Industrial styles */
+    .industrial-container {
+      min-height: 100vh;
+      padding-bottom: 2rem;
+    }
+    
+    .header-bar {
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--industrial-rust);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    
+    .metal-plate {
+      background-color: var(--industrial-metal);
+      background-image: 
+        linear-gradient(45deg, var(--industrial-gray) 25%, transparent 25%, transparent 75%, var(--industrial-gray) 75%),
+        linear-gradient(-45deg, var(--industrial-gray) 25%, transparent 25%, transparent 75%, var(--industrial-gray) 75%);
+      background-size: 10px 10px;
+      padding: 10px;
+      position: relative;
+    }
+    
+    .metal-plate::before, .metal-plate::after {
+      content: "";
+      position: absolute;
+      height: 10px;
+      width: 10px;
+      background-color: var(--industrial-rust);
+      border-radius: 50%;
+      border: 2px solid #111;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .metal-plate::before {
+      left: 20px;
+    }
+    
+    .metal-plate::after {
+      right: 20px;
+    }
+    
+    h1 {
+      color: var(--industrial-accent);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 3px;
+      font-size: 2.2rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .secret-text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 14px;
+      border-radius: 5px;
+      background-color: var(--industrial-rust);
+      padding: 2px 10px;
+      opacity: 0.8;
+    }
+    
+    .secret-link {
+      color: var(--industrial-accent);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    /* Gallery styles */
+    .industrial-panel {
+      border: none;
+      background-color: var(--industrial-gray);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5) !important;
+      position: relative;
+      border-radius: 0;
+      border-left: 5px solid var(--industrial-rust);
+      margin-bottom: 30px;
+    }
+    
+    .factory-header {
+      background-color: var(--industrial-metal);
+      border-bottom: 2px solid var(--industrial-rust);
+      color: var(--industrial-accent);
+      border-radius: 0;
+      padding: 1rem;
+    }
+    
+    .rivet, .modal-rivet {
+      width: 12px;
+      height: 12px;
+      background-color: var(--industrial-rust);
+      border-radius: 50%;
+      display: inline-block;
+      border: 2px solid #212529;
+    }
+    
+    .industrial-btn {
+      background-color: var(--industrial-rust);
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .metal-bar {
+      height: 2px;
+      background-color: var(--industrial-rust);
+      flex-grow: 1;
+      margin: 0 15px;
+    }
+    
+    .section-title h3 {
+      color: var(--industrial-accent);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      margin: 0;
+      white-space: nowrap;
+    }
+    
+    .industrial-image-card {
+      border: none;
+      background-color: var(--industrial-gray);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      height: 100%;
+    }
+    
+    .industrial-image-card::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 8px;
+      height: 8px;
+      background-color: var(--industrial-rust);
+      border-radius: 50%;
+      z-index: 2;
+    }
+    
+    .industrial-image-card::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      background-color: var(--industrial-rust);
+      border-radius: 50%;
+      z-index: 2;
+    }
+    
+    .image-container {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .image-footer {
+      background-color: var(--industrial-metal);
+      border-top: 2px solid var(--industrial-rust);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+    }
+    
+    .delete-btn {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 50%;
+      background-color: #6c1414;
+    }
+    
+    .delete-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    
+    .user-panel {
+      background-color: var(--industrial-gray);
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid var(--industrial-metal);
+      border-left: 5px solid var(--industrial-rust);
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+    }
+    
+    .welcome-text {
+      margin: 0;
+      color: var(--industrial-accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logout-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      padding: 8px 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container industrial-container mt-5">
+    <div class="header-bar mb-4">
+      <div class="metal-plate">
+        <h1>INDUSTRIAL IMAGE VAULT 
+          <span class="secret-text">
+            <a href="https://github.com/Maks0101aps" target="_blank" class="secret-link" title="Created by Maks0101aps">@Maks0101aps</a>
+          </span>
+        </h1>
+      </div>
+    </div>
+
+    <main class="container py-4">
+      <div class="user-panel mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4 class="welcome-text">
+            <span class="welding-icon">⚙️</span> 
+            WELCOME, USER
+          </h4>
+          <button class="btn btn-danger logout-btn">
+            <span class="btn-text">LOGOUT</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Gallery Component -->
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card shadow industrial-panel">
+            <div class="card-header factory-header">
+              <div class="d-flex align-items-center">
+                <span class="rivet"></span>
+                <h5 class="mb-0 ms-3">UPLOAD NEW IMAGE</h5>
+                <span class="rivet ms-auto"></span>
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label for="imageUpload" class="form-label">SELECT IMAGE</label>
+                  <div class="input-group">
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageUpload"
+                      accept="image/*"
+                    />
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="title" class="form-label">TITLE</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    placeholder="Enter image title"
+                  />
+                </div>
+                
+                <div class="mb-3">
+                  <label for="description" class="form-label">DESCRIPTION (OPTIONAL)</label>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    placeholder="Enter image description"
+                    rows="3"
+                  ></textarea>
+                </div>
+                
+                <button
+                  type="submit"
+                  class="btn btn-primary industrial-btn"
+                >
+                  <span class="btn-icon">⚙️</span>
+                  UPLOAD IMAGE
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-12">
+          <div class="section-title">
+            <div class="metal-bar"></div>
+            <h3>YOUR IMAGES</h3>
+            <div class="metal-bar"></div>
+          </div>
+          
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Image Card 1 -->
+            <div class="col">
+              <div class="card industrial-image-card h-100">
+                <div class="image-container">
+                  <img
+                    src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
+                    class="card-img-top"
+                    alt="Industrial Machinery"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Industrial Machinery</h5>
+                  <p class="card-text">Heavy machinery in a factory setting with dramatic lighting.</p>
+                </div>
+                <div class="card-footer image-footer">
+                  <small class="text-muted">Uploaded on 03/28/2025</small>
+                  <button class="btn btn-sm btn-danger delete-btn">
+                    <span class="delete-icon">×</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Image Card 2 -->
+            <div class="col">
+              <div class="card industrial-image-card h-100">
+                <div class="image-container">
+                  <img
+                    src="https://images.unsplash.com/photo-1531312267124-cd1f431feb1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80"
+                    class="card-img-top"
+                    alt="Factory Interior"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Factory Interior</h5>
+                  <p class="card-text">Inside a modern factory with steel structures and industrial aesthetics.</p>
+                </div>
+                <div class="card-footer image-footer">
+                  <small class="text-muted">Uploaded on 03/27/2025</small>
+                  <button class="btn btn-sm btn-danger delete-btn">
+                    <span class="delete-icon">×</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Image Card 3 -->
+            <div class="col">
+              <div class="card industrial-image-card h-100">
+                <div class="image-container">
+                  <img
+                    src="https://images.unsplash.com/photo-1473621038790-b778b4750efe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80"
+                    class="card-img-top"
+                    alt="Rusty Texture"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Rusty Metal Texture</h5>
+                  <p class="card-text">Close-up of a rusty metal surface with intricate patterns and textures.</p>
+                </div>
+                <div class="card-footer image-footer">
+                  <small class="text-muted">Uploaded on 03/26/2025</small>
+                  <button class="btn btn-sm btn-danger delete-btn">
+                    <span class="delete-icon">×</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-0">
+        Industrial Image Vault &copy; 2025 | Crafted with industrial precision by 
+        <a href="https://github.com/Maks0101aps" class="footer-link" target="_blank">Maks0101aps</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html> 

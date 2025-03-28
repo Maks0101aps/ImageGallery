@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industrial Image Vault - Image Modal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --industrial-dark: #212529;
+      --industrial-gray: #343a40;
+      --industrial-metal: #495057;
+      --industrial-rust: #b0633b;
+      --industrial-concrete: #adb5bd;
+      --industrial-accent: #ffd166;
+    }
+    
+    body {
+      font-family: 'Saira Condensed', sans-serif;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .modal-content {
+      background-color: var(--industrial-gray);
+      border: 2px solid var(--industrial-rust);
+      border-radius: 0;
+      width: 90vw;
+      max-width: 1200px;
+    }
+    
+    .modal-header {
+      background-color: var(--industrial-metal);
+      border-bottom: 2px solid var(--industrial-rust);
+      padding: 1rem;
+    }
+    
+    .modal-title {
+      color: var(--industrial-accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 0 15px;
+      flex-grow: 1;
+      font-weight: 700;
+    }
+    
+    .modal-rivet {
+      width: 12px;
+      height: 12px;
+      background-color: var(--industrial-rust);
+      border-radius: 50%;
+      display: inline-block;
+      border: 2px solid #212529;
+    }
+    
+    .industrial-close {
+      background: var(--industrial-rust);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      opacity: 1;
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .modal-footer {
+      background-color: var(--industrial-metal);
+      border-top: 2px solid var(--industrial-rust);
+      position: relative;
+    }
+    
+    .description-text {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.9rem;
+      color: #adb5bd;
+    }
+    
+    .industrial-close-btn {
+      background-color: var(--industrial-metal);
+      border: 1px solid var(--industrial-concrete);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: white;
+    }
+    
+    .github-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: var(--industrial-accent);
+      color: var(--industrial-dark);
+      text-decoration: none;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .github-badge:hover {
+      background-color: var(--industrial-rust);
+      color: white;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Image Modal -->
+  <div class="modal-dialog modal-dialog-centered modal-xl industrial-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center w-100">
+          <span class="modal-rivet"></span>
+          <h5 class="modal-title">Factory Interior</h5>
+          <button type="button" class="industrial-close" aria-label="Close">×</button>
+          <span class="modal-rivet ms-auto"></span>
+        </div>
+      </div>
+      <div class="modal-body text-center p-0">
+        <img 
+          src="https://images.unsplash.com/photo-1531312267124-cd1f431feb1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" 
+          alt="Factory Interior"
+          class="img-fluid"
+          style="max-height: 80vh; width: auto;"
+        />
+      </div>
+      <div class="modal-footer">
+        <p class="text-muted me-auto description-text">Inside a modern factory with steel structures and industrial aesthetics.</p>
+        <button type="button" class="btn btn-secondary industrial-close-btn">CLOSE</button>
+        <a href="https://github.com/Maks0101aps" class="github-badge" target="_blank">@Maks0101aps</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
